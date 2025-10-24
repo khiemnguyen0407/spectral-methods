@@ -5,10 +5,11 @@ Convergence of second-order and fourth-order differences
 from scipy.sparse import coo_matrix
 import numpy as np
 import matplotlib.pyplot as plt
-# For various N, set up grid in [-pi, pi] and function u(x)
+
 # %%
-# Add comment here
+# For various N, set up grid in [-pi, pi] and function u(x)
 Nvec = 2**np.arange(3, 13)
+fig, ax = plt.subplots()
 for N in Nvec:
     h = 2*np.pi / N
     x = -np.pi + np.arange(1, N+1) * h
@@ -31,17 +32,19 @@ for N in Nvec:
     # Plot max(abs(D4*u - uprime))
     error4 = np.linalg.norm(D4.dot(u) - uprime, ord = np.inf)
     error2 = np.linalg.norm(D2.dot(u) - uprime, ord = np.inf)
-    plt.loglog(N, error4, 'ro', markersize=4)
-    plt.loglog(N, error2, 'bs', markersize=4)
+    ax.loglog(N, error4, 'ro', markersize=4)
+    ax.loglog(N, error2, 'bs', markersize=4)
 
 # %%
-plt.grid(True)
-plt.xlabel(r'$N$', fontsize=18)
-plt.ylabel('error', fontsize=18)
-plt.title('Convergence of 4th-order finite differences')
-plt.semilogy(Nvec, Nvec ** (-4.0), 'r--')
-plt.semilogy(Nvec, Nvec ** (-2.0), 'b--')
-plt.text(105, 5e-8, r'$N^{-4}$', fontsize=18)
-
-# %%
+# ax.set_xlabel(r'$N$', fontsize=18)
+# ax.set_ylabel('error', fontsize=18)
+# ax.set_title('Convergence of 4th-order finite differences')
+plt.loglog(Nvec, Nvec ** (-4.0), 'r--')
+# plt.plot(Nvec, Nvec ** (-2.0), 'b--')
+# ax.text(105, 5e-8, r'$N^{-4}$', fontsize=18)
 plt.show()
+
+# %%
+# plt.show()
+
+# %%
